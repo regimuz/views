@@ -140,8 +140,8 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 
    <bean id="recaptchaService" class="webapp.util.captcha.RecaptchaService">
    		<property name="url" value="https://www.google.com/recaptcha/api/siteverify"/>
-   		<property name="key" value="6LeiS6UUAAAAAI3L7iwqnX_tM7qIVWycQLeN1QJt"/>
-   		<property name="secret" value="6LeiS6UUAAAAALlDW3WG7MuC9K0dK0fL3WaLbZET"/>
+   		<property name="key" value="xxx"/>
+   		<property name="secret" value="xxx"/>
    </bean>
 	<bean class="webapp.WebController" id="webController">
       <property name="mailSender" ref="mailSender"/>
