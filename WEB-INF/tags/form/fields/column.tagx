@@ -1,0 +1,120 @@
+<jsp:root xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="property" type="java.lang.String" required="false" rtexprvalue="true" description="The property (field name) of the dataset to be displayed in a column (optional, if omited tag's body will be used as template having columnData and columnMaxLength set in request scope)." />
+  <jsp:directive.attribute name="order" type="java.lang.String" required="false" rtexprvalue="true" description="The property (field name) of the dataset to be displayed in a column (optional, if omited tag's body will be used as template having columnData and columnMaxLength set in request scope)." />
+  <jsp:directive.attribute name="maxLength" type="java.lang.Integer" required="false" rtexprvalue="true" description="Max displayed text length (default '10'). Unlimited if negative" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" rtexprvalue="true" description="The column label to be used in the table (optional)." />
+  <jsp:directive.attribute name="width" type="java.lang.String" required="false" rtexprvalue="true" description="The column label to be used in the table (optional)." />
+  <jsp:directive.attribute name="date" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate that this field is of type java.util.Date" />
+  <jsp:directive.attribute name="calendar" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate that this field is of type java.util.Calendar" />
+  <jsp:directive.attribute name="dateTimePattern" type="java.lang.String" required="false" rtexprvalue="true" description="The date / time pattern to use if the field is a date or calendar type" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+  
+  <c:if test="${empty path}"><c:set value="${requestScope['javax.servlet.forward.servlet_path']}" var="path"/></c:if>
+  
+  <c:if test="${empty render or render}">
+    <c:if test="${empty order}">
+      <c:set var="order" value="${property}"/>
+    </c:if>
+    <c:if test="${empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" htmlEscape="false" />
+    </c:if>
+	<!-- 
+	<c:if test="${empty maxLength}">
+		<c:set var="maxLength" value="10" />
+	</c:if>
+	 -->
+    <c:if test="${empty dateTimePattern}">
+      <c:set value="MM/dd/yyyy" var="dateTimePattern" />
+    </c:if>
+      
+    <c:choose>
+      <c:when test="${date and empty columnTypes}">
+        <c:set var="columnTypes" value="date" scope="request" />
+        <c:set var="columnDatePatterns" value="${dateTimePattern}" scope="request" />
+      </c:when>
+      <c:when test="${date and not empty columnTypes}">
+        <c:set var="columnTypes" value="${columnTypes},date" scope="request" />
+        <c:set var="columnDatePatterns" value="${columnDatePatterns},${dateTimePattern}" scope="request" />
+      </c:when>
+      <c:when test="${calendar and empty columnTypes}">
+        <c:set var="columnTypes" value="calendar" scope="request" />
+        <c:set var="columnDatePatterns" value="${dateTimePattern}" scope="request" />
+      </c:when>
+      <c:when test="${calendar and not empty columnTypes}">
+        <c:set var="columnTypes" value="${columnTypes},calendar" scope="request" />
+        <c:set var="columnDatePatterns" value="${columnDatePatterns},${dateTimePattern}" scope="request" />
+      </c:when>
+      <c:when test="${empty columnTypes}">
+        <c:set var="columnTypes" value="default" scope="request" />
+        <c:set var="columnDatePatterns" value="none" scope="request" />
+      </c:when>
+      <c:otherwise>
+        <c:set var="columnTypes" value="${columnTypes},default" scope="request" />
+        <c:set var="columnDatePatterns" value="${columnDatePatterns},none" scope="request" />
+      </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+		<c:when test="${columnMode eq 'heading'}">
+			<c:choose>
+			    <c:when test="${param.column eq order}">
+			        <c:set value="" var="className"/>
+			        <c:set value="${param.order}" var="classOrder"/>
+			    </c:when>
+			    <c:otherwise>
+			        <c:set value="" var="className"/>
+			        <c:set value="" var="classOrder"/>
+			    </c:otherwise>
+			</c:choose>
+			<c:set value="class_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="columnHeader"/>
+			<th class="${columnHeader} ${className} ${classOrder}" width="${width}" valign="top" style="padding: 5px">
+				<spring:eval var="columnCounter" expression="columnCounter + 1" scope="request" />
+				<c:choose>
+				    <c:when test="${not empty order}">
+			            <util:pgUrl excludeParam="${order}" pageUrl="${path}" var="orderCol"/>
+			            <spring:url value="${orderCol}" var="orderCol"/>
+						<a href="${orderCol}"><c:out value="${label}" /></a>
+				    </c:when>
+				    <c:otherwise>
+				    	<c:out value="${label}" />
+				    </c:otherwise>
+				</c:choose>
+			</th>
+		</c:when>
+		<c:when test="${columnMode eq 'body'}">
+			<c:set value="row_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="columnRow"/>
+			<td class="${columnRow}" width="${width}" valign="top" style="padding: 5px">
+			<c:choose>
+				<c:when test="${empty property}">
+					<c:set var="columnMaxLength" value="${maxLength}" scope="request" />
+					<jsp:doBody />
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${empty maxLength}">
+							<spring:eval expression="columnData[property]" var="colTxt"/>
+							<c:choose>
+								<c:when test="${calendar}">
+									<fmt:formatDate pattern="${dateTimePattern}" value="${colTxt.time}"/>
+								</c:when>
+								<c:otherwise>
+									<c:out value="${colTxt}"/>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<spring:eval expression="columnData[property]" var="colTxt" />
+							<c:out value="${fn:substring(colTxt, 0, maxLength)}" />
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+			</td>
+			</c:when>
+    </c:choose>
+  </c:if>
+</jsp:root>

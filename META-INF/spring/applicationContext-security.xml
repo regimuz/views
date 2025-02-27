@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" 
+    xmlns:beans="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	<beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+    <!-- HTTP security configurations -->
+    <http pattern="/resources/images/**" security="none"/>
+    <http pattern="/resources/css/**" security="none"/>
+    <http pattern="/resources/javascript/**" security="none"/>
+    <http pattern="/resources/dojo/**" security="none"/>
+    <http pattern="/resources/dijit/**" security="none"/>
+    <http pattern="/resources/spring/**" security="none"/>
+    <http pattern="/resources/styles/**" security="none"/>
+<!-- 
+    <http pattern="/swagger-resources/**" security="none"/>
+    <http pattern="/swagger-ui.html" security="none"/>
+    <http pattern="/v2/api-docs" security="none"/>
+    <http pattern="/webjars/**" security="none"/>
+ -->
+	<!-- 
+	<beans:bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+     <beans:constructor-arg value="/login" />
+   </beans:bean>
+ -->
+    <http auto-config="true" use-expressions="true"> <!--  entry-point-ref="loginUrlAuthenticationEntryPoint" -->
+    	<http-basic />
+    	<form-login default-target-url="/loggedin" login-processing-url="/resources/j_spring_security_check" login-page="/login" authentication-failure-url="/login?login_error=t" />
+    	
+    	<!-- <custom-filter ref="jwtHandler" position="BEARER_TOKEN_AUTH_FILTER"/> -->
+    	<!-- <custom-filter ref="authenticationProcessingFilter" position="FORM_LOGIN_FILTER"/> -->
+        <custom-filter ref="switchUserProcessingFilter" position="SWITCH_USER_FILTER" />
+    	<logout logout-url="/j_spring_security_logout"/>
+        <remember-me key="quu4ahg9thai5Aejoojuoboopee4xoTh"  />
+        <intercept-url pattern="/admin/**" access="hasAuthority('admin') or hasAuthority('ROLE_PREVIOUS_ADMINISTRATOR')" />
+        <intercept-url pattern="/**" access="permitAll" />
+        <access-denied-handler error-page="/dataAccessFailure"/>
+        <!-- <custom-filter ref="captchaFilterBean" before="FORM_LOGIN_FILTER"/> -->
+        <custom-filter ref="corsHandler" after="PRE_AUTH_FILTER"/>
+        <csrf disabled="true"/>
+        <headers>
+        	<frame-options policy="SAMEORIGIN"/>
+        </headers>
+    </http>
+    <beans:bean id="jwtHandler" class="webapp.util.security.JwtAuthorizationFilter" />
+	<beans:bean id="corsHandler" class="webapp.util.CorsFilter" />
+	
+	<beans:bean id="authenticationSuccessHandlerImpl" class="webapp.AuthenticationSuccessHandlerImpl">
+	    <!-- After login, return to the last visited page -->
+	    <beans:property name="useReferer" value="true" />
+	</beans:bean>
+	
+	
+	<beans:bean id="userDetailsService" class="auth.UserDetailsService"/>
+
+ 	<!-- <beans:bean class="auth.PasswordEncoder" id="encoder"/> -->
+ 	<beans:bean class="org.springframework.security.crypto.argon2.Argon2PasswordEncoder" id="encoder">
+ 		<beans:constructor-arg index="0" value="16" />
+ 		<beans:constructor-arg index="1" value="32" />
+ 		<beans:constructor-arg index="2" value="1" />
+ 		<beans:constructor-arg index="3" value="16384"  />
+ 		<beans:constructor-arg index="4" value="2" />
+ 	</beans:bean>
+ 	
+	<!-- Configure Authentication mechanism -->
+    <authentication-manager alias="authenticationManager">
+    	<!-- SHA-256 values can be produced using 'echo -n your_desired_password | sha256sum' (using normal *nix environments) -->
+    	<authentication-provider user-service-ref="userDetailsService" >
+	    	<password-encoder ref="encoder"/>
+    	</authentication-provider>
+	</authentication-manager>
+	 <beans:bean id="switchUserProcessingFilter" class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter" >
+		<beans:property name="userDetailsService" ref="userDetailsService"/>
+		<beans:property name="switchUserUrl" value="/admin/impersonate"/>
+		<beans:property name="targetUrl" value="/contracts"/>
+		<beans:property name="switchFailureUrl" value="/admin/switchUser"/>
+	</beans:bean>
+</beans:beans>

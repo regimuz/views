@@ -1,0 +1,39 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="var" type="java.lang.String" rtexprvalue="false" required="true"/>
+  <jsp:directive.attribute name="allowOrderChange" type="java.lang.Boolean" rtexprvalue="false" required="false"/>
+  <jsp:directive.attribute name="pageUrl" type="java.lang.String" required="true" rtexprvalue="true" description="URL" />
+  <jsp:directive.attribute name="excludeParam" type="java.lang.String" required="false" rtexprvalue="true" description="param name to exclude" />
+  <jsp:directive.variable alias="returnedUrl" name-from-attribute="var" scope="AT_BEGIN" variable-class="java.lang.String"/>
+	<c:set var="first" value="false"/>
+	<c:set var="found" value="false"/>
+	<c:forEach items="${paramValues}" var="p" varStatus="status">
+		<c:forEach var='value' items='${p.value}'>
+			<c:if test="${p.key ne 'order' and p.key ne 'column'}">
+				<c:choose>
+					<c:when test="${first eq false}">
+						<c:set value="${pageUrl}?${p.key}=${value}" var="pageUrl" />
+						<c:set var="first" value="true"/>
+					</c:when>
+					<c:otherwise>
+						<c:set value="${pageUrl}&amp;${p.key}=${value}" var="pageUrl" />
+					</c:otherwise>
+				</c:choose>
+			</c:if>
+		</c:forEach>
+	</c:forEach>
+	<c:set var="ordered" value="desc"/>
+	<c:if test="${param.order eq 'desc' and param.column eq excludeParam and (empty allowOrderChange or allowOrderChange eq true)}">
+		<c:set var="ordered" value="asc"/>
+	</c:if>
+	<c:choose>
+		<c:when test="${first eq false}">
+			<c:set value="${pageUrl}?column=${excludeParam}&amp;order=${ordered}" var="pageUrl" />
+		</c:when>
+		<c:otherwise>
+			<c:set value="${pageUrl}&amp;column=${excludeParam}&amp;order=${ordered}" var="pageUrl" />
+		</c:otherwise>
+	</c:choose>
+	<c:set var="returnedUrl" value="${pageUrl}"/>
+</jsp:root>
