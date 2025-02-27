@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <form:create id="fc_webapp_web_domain_WhmPackage" modelAttribute="whmPackage" path="/whmpackages" render="${empty dependencies}" z="Lon5DwhmITbKcRuuKKKijnIDY8A=">
+        <field:select cssClass="skipCustom" field="users" id="c_webapp_web_domain_WhmPackage_users" itemLabel="email" itemValue="id" items="${users}" path="/users" z="user-managed"/>
+        <field:simple field="whmAccounts" id="c_webapp_web_domain_WhmPackage_whmAccounts" messageCode="entity_reference_not_managed" messageCodeAttribute="Whm Account" render="false" z="user-managed"/>
+        <field:select field="users" id="c_webapp_web_domain_WhmPackage_users" itemValue="id" items="${users}" multiple="true" path="/users" render="false" z="user-managed"/>
+        <field:simple field="hostings" id="c_webapp_web_domain_WhmPackage_hostings" messageCode="entity_reference_not_managed" messageCodeAttribute="Hosting" render="false" z="user-managed"/>
+        <field:editor field="description" id="c_webapp_web_domain_WhmPackage_description" z="user-managed"/>
+        <field:simple field="contracts" id="c_webapp_web_domain_WhmPackage_contracts" messageCode="entity_reference_not_managed" messageCodeAttribute="Contract" render="false" z="user-managed"/>
+        <field:simple field="withdraws" id="c_webapp_web_domain_WhmPackage_withdraws" messageCode="entity_reference_not_managed" messageCodeAttribute="Withdraw" render="false" z="user-managed"/>
+        <field:input field="name" id="c_webapp_web_domain_WhmPackage_name" required="true" z="0DAZdZhZRdc/LzCpGIqgsDJGAyQ="/>
+        <field:input field="quota" id="c_webapp_web_domain_WhmPackage_quota" validationMessageCode="field_invalid_integer" z="HXHJBu7c3+3NCEEM5EWu32g2Duo="/>
+        <field:input field="title" id="c_webapp_web_domain_WhmPackage_title" z="S/KCZJrOK/j5mfgUK3PV6r6Y8z0="/>
+        <field:input field="price" id="c_webapp_web_domain_WhmPackage_price" z="ewwvqcOYNLiQ/+zqUlx5dhVG8DU="/>
+        <field:input field="cost" id="c_webapp_web_domain_WhmPackage_cost" validationMessageCode="field_invalid_number" z="eZlJcwWgbL/fv4tM6b6S6Qq3OOk="/>
+        <field:input field="regtime" id="c_webapp_web_domain_WhmPackage_regtime" validationMessageCode="field_invalid_integer" z="6IzuHa8rk/KceJ3vUcmYKevogx8="/>
+        <field:checkbox field="hosting" id="c_webapp_web_domain_WhmPackage_hosting" z="DxUeixdCXe1Zs/oHZVRObp/2slI="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_webapp_web_domain_WhmPackage" render="${not empty dependencies}" z="oylLHKkKr1TIh5Gg6iC7VdzX+NI="/>
+    </layout:put></layout:extends>
+</div>

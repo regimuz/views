@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <page:list id="pl_webapp_web_domain_Country" items="${countrys}" z="YuCxcnhgR5/NiYX+QAltBxI5jEE=">
+        <table:table data="${countrys}" id="l_webapp_web_domain_Country" path="/countrys" z="5yiW3QInmzeAeRI3Tld2YwY3zFg=">
+            <table:column id="c_webapp_web_domain_Country_name" property="name" z="PIu+UHtezEYEmXKfHJP536oXfU4="/>
+            <table:column id="c_webapp_web_domain_Country_iso2" property="iso2" z="cWJ/P8FNNr99vYacfrpETvlud+M="/>
+            <table:column id="c_webapp_web_domain_Country_iso3" property="iso3" z="67VWz1CxPb6RpmVCuOTSOzUcRB8="/>
+        </table:table>
+    </page:list>
+</layout:put></layout:extends>
+</div>

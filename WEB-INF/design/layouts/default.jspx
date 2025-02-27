@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" version="2.3">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:directive.page pageEncoding="UTF-8" />
+<jsp:text>&lt;!DOCTYPE html&gt;</jsp:text>
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+	<util:load-scripts />
+
+	<spring:message code="application_name" var="app_name" htmlEscape="false" />
+	<spring:url value="/" var="homeUrl" />
+	<jsp:useBean id="now" class="java.util.Date" />
+	<fmt:setLocale value="ru_RU" />
+</head>
+
+<body class="soria spring">
+
+	<!-- main_container -->
+	<div id="mainContainer">
+		<!-- header start -->
+		<div class="header">
+			<div class="header_top">
+				<div class="logo">
+					<div><a href="${homeUrl}">Home</a></div>
+				</div>
+			</div>
+		</div>
+		<!-- header end  -->
+		<!-- main content start -->
+		<div class="mainContent">
+			<!-- left content -->
+			<div class="left_content" style="float: left;width: 250px;">
+					<c:choose>
+						<c:when test="${pageContext['request'].userPrincipal == null}">
+							<div class="unreg_auth">
+								<c:if test="${!fn:contains(requestScope['javax.servlet.forward.request_uri'], 'login') and !fn:contains(requestScope['javax.servlet.forward.request_uri'], 'authentication')}">
+									<div class="right_content_avtorization ">
+										<div class="right_content_avtorization_top">
+											<div class="login active">
+												<spring:message code="default.entrance" htmlEscape="false" />
+											</div>
+											<div class="registration_top">
+												<spring:url var="signupUrl" value="/users?form" />
+												<a href="${signupUrl}">
+													<spring:message code="default.registration" htmlEscape="false" />
+												</a>
+											</div>
+										</div>
+										<div class="form_cont">
+											<spring:url var="loginUrl" value="/resources/j_spring_security_check" />
+											<form action="${loginUrl}" class="authForm" method="post" name="loginForm">
+												<fieldset>
+													<div><input class="label_field" placeholder="E-mail" name="username" type="text" id="username" value="" />
+													</div>
+													<div><input class="label_field" name="password" placeholder="Пароль" type="password" id="password" /></div>
+													<div class="submit_div">
+														<input type="hidden" value="true" name="remember-me" />
+														<input type="submit" value="Войти" name="Login" />
+													</div>
+													<div class="pass_mention">
+														<spring:url var="remindUrl" value="/users/remind" />
+														<a href="${remindUrl}">
+															<spring:message code="default.pass_remind" htmlEscape="false" />
+														</a>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</c:if>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="user_left_nav_cont">
+								<ul class="the_left_nav">
+									<sec:authorize access="hasAuthority('admin')">
+										<li>
+											<spring:url var="usersUrl" value="/users" />
+											<a href="${usersUrl}">Пользователи</a>
+										</li>
+									</sec:authorize>
+									<spring:url var="contractUrl" value="/contracts" />
+									<li><a href="${contractUrl}">
+										<spring:message code="default.my_contracts" htmlEscape="false" />
+									</a></li>
+									<spring:url var="contactUrl" value="/contacts" />
+									<li><a href="${contactUrl}">
+										<spring:message code="default.my_contacts" htmlEscape="false" />
+									</a></li>
+									<spring:url var="detailsUrl" value="/users/details" />
+									<li><a href="${detailsUrl}">
+										<spring:message code="default.settings" htmlEscape="false" />
+									</a></li>
+									<spring:url var="logoutUrl" value="/j_spring_security_logout" />
+									<li class="last_child"><a href="${logoutUrl}" class="logoutLink">
+											<spring:message code="default.exit" htmlEscape="false" />
+										</a></li>
+								</ul>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			<!-- left content end -->
+			<!-- central content  -->
+			<div class="central_content" style="float: left; width: 80% !important;">
+				<layout:block name="contents">
+				<!-- Tiles body replacement -->
+				</layout:block>
+			</div>
+			<!-- central content end -->
+	</div>
+		<!-- maon content end  -->
+	</div>
+	<!-- end of main container -->
+	<div class="clear">&amp;nbsp;</div>
+	<!-- footer start -->
+	<div id="footer">
+		<div class="f_left">&amp;copy;
+			<fmt:formatDate value="${now}" pattern="yyyy" />
+		</div>
+		<div class="f_call_back">
+				<spring:url var="mailUrl" value="/mailus" />
+				<a href="${mailUrl}">
+				<spring:message code="default.callback" htmlEscape="false" />
+			</a></div>
+	</div>
+	<!-- footer end -->
+</body>
+
+</html>
+</jsp:root>

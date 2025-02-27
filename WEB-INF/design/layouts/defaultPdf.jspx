@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" version="2.3">
+<jsp:directive.page contentType="text/html;charset=UTF-8" />
+<jsp:directive.page pageEncoding="UTF-8" />
+<jsp:text>&lt;!DOCTYPE html&gt;</jsp:text>
+<html xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style type="text/css">
+			body, td {
+				font-family: Times New Roman;
+				font-size: 11.5px;
+			}
+			p,div,body {
+				margin: 0;
+			}
+			invoice {
+				font-size: 14px;
+			}
+		</style>
+	</head>
+  	<body face="Times New Roman" encoding="utf-8">
+  		<!-- <tiles:insertAttribute name="body" /> -->
+		<layout:block name="contents">
+		<!-- Tiles body replacement -->
+		</layout:block>
+ 	</body>
+</html>
+</jsp:root>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <form:update id="fu_webapp_web_domain_Region" modelAttribute="region" path="/regions" versionField="none" z="0CVeZrVW48JDyxTvKk7HQdc//8g=">
+        <field:select field="country" id="c_webapp_web_domain_Region_country" itemValue="id" items="${countrys}" path="/countrys" z="nSfXxZkfkY114oCbEmh0Y2KHwpM="/>
+        <field:input field="name" id="c_webapp_web_domain_Region_name" required="true" z="WQwnFW8vc415ITQf5YVpVK7xusc="/>
+    </form:update>
+    </layout:put></layout:extends>
+</div>

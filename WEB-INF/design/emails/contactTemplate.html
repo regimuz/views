@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+<body>
+<h3 >[[${form.fromName}]] ([[${form.fromEmail}]]):</h3>
+<div>
+   <h2 th:text="[[${form.subject}]]"></h2>
+   [[${form.emailMessage}]]
+</div>
+User-Agent: [[${userAgent}]]<br/>
+RequestURL: <th:block th:text="[[${requestURL}]]"></th:block><br/>
+QueryString: [[${queryString}]]<br/>
+IP Address: [[${remoteAddr}]]<br/>
+Email: [[${email}]]<br/>
+Time: [[${currentTime}]]<br/>
+[[${printrequest}]]
+
+</body>
+</html>

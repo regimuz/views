@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:spring="http://www.springframework.org/tags" 
+xmlns:sec="http://www.springframework.org/security/tags"
+xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <page:show update="false" delete="false" id="ps_webapp_web_domain_User" object="${user}" path="/users" z="mxgsvqu+IE5maA6/2BoqqB0eUWc=">
+        <field:display field="roleId" id="s_webapp_web_domain_User_role" object="${user}" z="lU/EA2Ry+KfTEmvyHjHdC/v3jEc="/>
+        <field:display field="email" id="s_webapp_web_domain_User_email" object="${user}" z="m2DVhPbFbClElDw/Gsc2o57W/qo="/>
+        <field:display field="ip" id="s_webapp_web_domain_User_ip" object="${user}" z="QgtUG37l2IbSgXjkD6VX0H6uyzw="/>
+        <field:display calendar="true" dateTimePattern="${date_format}" field="dateCreated" id="s_webapp_web_domain_User_dateCreated" object="${user}" z="bOuBxhwi6snB8pYYAHPZIG629nY="/>
+        <field:display calendar="true" dateTimePattern="${date_format}" field="lastLogin" id="s_webapp_web_domain_User_lastLogin" object="${user}" z="ajgBv+emjLd+nsCWjyAkCvOpuPI="/>
+        <field:display field="managed" id="s_webapp_web_domain_User_managed" object="${user}" z="ndn35pCuHnL4QP7viAh8pZ8k2Ds="/>
+        <field:display field="locked" id="s_webapp_web_domain_User_locked" object="${user}" z="kl9vLILRB44Kf+oSaOlFX3OzM9g="/>
+        <field:display field="validated" id="s_webapp_web_domain_User_validated" object="${user}" z="mpIerfqNxqqszmCJ6UR8g2aJI+U="/>
+        <field:display field="whmPackages" id="s_webapp_web_domain_User_tarifs" object="${user}" z="5QBnA2rf8N6T4pdz7YrYxm6Ety8="/>
+		<sec:authorize access="hasAuthority('admin')" >
+        	<br/>
+        	<spring:url value="/admin/impersonate" var="switchUrl" />
+            <form action="${switchUrl}" method="post" enctype="application/x-www-form-urlencoded" >
+            	<input type="hidden" name="username" value="${user.email}"/>
+            	<input type="submit" value="Login as user"/>
+            </form>
+        </sec:authorize>
+    </page:show>
+    </layout:put></layout:extends>
+</div>

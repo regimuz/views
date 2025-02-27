@@ -1,0 +1,77 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:sec="http://www.springframework.org/security/tags" 
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:frm="http://www.springframework.org/tags/form" 
+xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    
+    <layout:extends name="default">
+    <layout:put block="contents">
+
+    <c:set value="true" var="create"/>
+    <c:set value="true" var="update"/>
+    <c:set value="true" var="list"/>
+    <c:set value="false" var="delete"/>
+    <c:if test="${!empty displayOther}">
+        <c:set value="false" var="create"/>
+        <c:set value="false" var="update"/>
+        <c:set value="false" var="list"/>
+        <c:set value="false" var="delete"/>
+    </c:if>
+    <page:show create="${create}" delete="${delete}" id="ps_webapp_web_domain_Contact" list="${list}" object="${contact}" path="/contacts" update="${update}" z="user-managed">
+        <c:if test="${!contact.hasVerified() }">
+        	<div style="border:solid 2px red;padding: 5px">Данные на проверке, убедитесь что все указано полностью и достоверно.</div>
+        </c:if>
+        
+        <ul class="nth" id="${idName}">
+            <c:choose>
+	            <c:when test="${!empty displayOther and !empty contacts}">
+	                <li class="first_child">
+    		            <frm:select id="s_webapp_web_domain_User_contacts" itemLabel="orgAndContactName" itemValue="id" items="${contacts}" path="${displayOther}"/>
+            		    <spring:url value="/contacts/${contact.id}" var="editUrl">
+                    		<spring:param name="form"/>
+	                    </spring:url>
+    		            <a class="editContact" href="${editUrl}"><spring:message code="contacts.show.change" htmlEscape="false"/></a>
+            		</li>
+	            </c:when>
+	            <c:otherwise>
+			<input type="hidden" name="${displayOther}" value="${contact.id}"/>
+	            </c:otherwise>
+            </c:choose>
+
+            <c:if test="${!empty displayOther and !empty contacts}">
+            </c:if>
+            <c:choose>
+                <c:when test="${contact.contactType eq 'l'}">
+                    <li><field:display field="organization" id="s_webapp_web_domain_Contact_organization" object="${contact}" z="I5EMpnRxa4HukvHC9284ByKWS9M="/></li>
+                    <li><field:display field="contactName" id="s_webapp_web_domain_Contact_contactName" object="${contact}" z="LiMa7zdGb+1ax2NtCPmYMWk4j6U="/></li>
+                    <li><field:display field="bankName" id="s_webapp_web_domain_Contact_bankName" object="${contact}" z="0n5k+QyR7/nqJEmqTji5Te5BZUE="/></li>
+                    <li><field:display field="rs" id="s_webapp_web_domain_Contact_rs" object="${contact}" z="2CJfRGuVtdCehMKIJu1qYbTPPdE="/></li>
+                    <li><field:display field="inn" id="s_webapp_web_domain_Contact_inn" object="${contact}" z="Pcf/4dfCXv6JNmyr4CXg6/44Zks="/></li>
+                    <li><field:display field="mfo" id="s_webapp_web_domain_Contact_mfo" object="${contact}" z="ZtTKUWnL/BAgdOfd+k12vhABc2k="/></li>
+                    <li><field:display field="okonh" id="s_webapp_web_domain_Contact_okonh" object="${contact}" z="AjBliGZ+izeF5Q/1efqmlycoVUA="/></li>
+                </c:when>
+                <c:otherwise>
+                    <li><field:display field="contactName" id="s_webapp_web_domain_Contact_fio" object="${contact}" z="LiMa7zdGb+1ax2NtCPmYMWk4j6U="/></li>
+                </c:otherwise>
+            </c:choose>
+            <li><field:display field="phone" id="s_webapp_web_domain_Contact_phone" object="${contact}" z="6La1TkJUbtJAt1UB3ensGcW1b6g="/></li>
+            <li><field:display field="fax" id="s_webapp_web_domain_Contact_fax" object="${contact}" z="BT7q18s1jz5ZnCQyDQfvkFaGG4Y="/></li>
+            <li><field:display field="country" id="s_webapp_web_domain_Contact_country" object="${contact}" z="l1LhDO0utANvPg0X3PCzbfU6svc="/></li>
+            <li><field:display field="region" id="s_webapp_web_domain_Contact_region" object="${contact}" z="XGpf70yNtE3sMQsi8J+kz4aaJpY="/></li>
+            <li><field:display field="city" id="s_webapp_web_domain_Contact_city" object="${contact}" z="ZAjofwtZ1gA4zr+g4CJTWWh+lO0="/></li>
+            <li><field:display field="postal" id="s_webapp_web_domain_Contact_postal" object="${contact}" z="/+LGv9G9+1AJQmN3xYx+/hGRPRI="/></li>
+            <li><field:display field="address" id="s_webapp_web_domain_Contact_address" object="${contact}" z="wqlxykAkqe+1Kd8hK3mC8RtqZL0="/></li>
+            <li><field:display field="email" id="s_webapp_web_domain_Contact_email" object="${contact}" z="pNQyomMeRUL/6n+oOPx7ktRvBzU="/></li>
+        </ul>
+        <div style="text-align: right;clear: both;">
+        	<spring:url value="/contacts/${contact.id}" var="editUrl">
+        		<spring:param name="form"/>
+        	</spring:url>
+        	<a href="${editUrl}">Редактировать</a>
+        </div>
+        <div style="display:none">
+        </div>
+    </page:show>
+</layout:put></layout:extends>
+</div>

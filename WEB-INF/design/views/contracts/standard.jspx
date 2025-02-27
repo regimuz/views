@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+xmlns:sec="http://www.springframework.org/security/tags"
+xmlns:spring="http://www.springframework.org/tags"
+xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+	<jsp:useBean id="now" class="java.util.Date" />
+	<fmt:formatDate value="${contract.dateCreated.time}" pattern="yyyyMMdd" var="created" />
+	<c:set var="inred" value="false"/>
+	<p align="center" style="text-align: center;"><b>ДОГОВОР &amp;Nu; ${contract.number} об оказании услуг &amp;nbsp; от <fmt:formatDate value="${contract.dateCreated.time}" pattern="dd.MM.yyyy"/> г.</b></p>
+
+	ООО &amp;laquo;Русский лес&amp;raquo;, именуемое в дальнейшем &amp;laquo;Исполнитель&amp;raquo;, в лице&amp;nbsp;Директора Иванова Д.Ш., действующего на основании Устава, с одной стороны, и 
+<b>
+<c:choose>
+	<c:when test="${clean == true}">_________________________________</c:when>
+	<c:otherwise>
+		<c:choose>
+			<c:when test="${contract.contact.contactType eq 'p'}">${contract.contact.contactName}</c:when>
+			<c:otherwise>${contract.contact.organization}</c:otherwise>
+		</c:choose>
+	</c:otherwise>
+</c:choose>
+,</b> именуемое в дальнейшем &amp;laquo;Заказчик&amp;raquo;, 
+	в лице 
+<c:choose>
+	<c:when test="${clean == true}">__________________________</c:when>
+	<c:otherwise>
+${contract.contact.contactName}
+	</c:otherwise>
+</c:choose>
+, действующего на основании
+	<c:choose>
+		<c:when test="${contract.contact.contactType eq 'p'}">Паспорта</c:when>
+		<c:otherwise>_________________</c:otherwise>
+	</c:choose>
+	, с другой стороны, заключили настоящий договор о нижеследующем:<br/>
+	<br/>
+	<b>Определение терминов</b><br/>
+	Понятия и определения связанные с сопровождением Заказчика трактуются в соответствии с . <br/>
+	<br/>
+	<b>1.&amp;nbsp;&amp;nbsp;Предмет Договора</b><br/>
+	1.1&amp;nbsp;&amp;nbsp; Исполнитель в соответствии и на основании заявки окажет услуги по сопровождению, далее Услуги для Заказчика, а Заказчик обязуется принять, оплатить и пользоваться ими в соответствии с настоящим Договором.<br/>
+	<br/>
+	<b>2.&amp;nbsp;&amp;nbsp;Стоимость и порядок расчетов</b><br/>
+	
+	2.1.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Стоимость услуги 
+	на ${contract.hyear}
+<c:choose>
+	<c:when test="${contract.hyear==3 or contract.hyear==4 or contract.hyear==2}">года</c:when>
+	<c:when test="${contract.hyear>=5}">лет</c:when>
+	<c:otherwise>год</c:otherwise>
+</c:choose>
+	сопровождения составляет 
+<b><fmt:formatNumber pattern="0 000" value="${contract.cost}" var="cost"/> ${fn:replace(cost, ',', '.')} </b> без НДС;<br/>
+	
+	2.2.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Оплата услуг производится в размере 100 % предоплаты не позднее 5 банковских дней с момента подписания Договора;<br/>
+	<br/>
+	<b>3.&amp;nbsp;&amp;nbsp;Обязательства&amp;nbsp;сторон</b><br/>
+	<b>3.1&amp;nbsp;&amp;nbsp;&amp;nbsp; Исполнитель обязуется:</b><br/>
+	3.1.1&amp;nbsp;&amp;nbsp;Выполнять условия настоящего Договора;<br/>
+	3.1.2&amp;nbsp;&amp;nbsp;В течение 5 банковских дней с момента подключения предоставить эл. с/фактуру;<br/>
+	3.1.3&amp;nbsp;&amp;nbsp;Сообщать на эл. почту&amp;nbsp;Заказчика планируемые изменения в правилах сопровождения и обновлять информацию в базе данных Исполнителя;<br/>
+	3.1.4&amp;nbsp;&amp;nbsp;При сбоях в работе домена Заказчика Исполнитель обязан в течение 3 рабочих дней с момента сообщения ему о сбое в письменном виде.<br/>
+	<b>3.2&amp;nbsp;&amp;nbsp;&amp;nbsp; Заказчик обязуется:</b><br/>
+	3.2.1&amp;nbsp;&amp;nbsp;Выполнять условия настоящего Договора;<br/>
+	3.2.2&amp;nbsp;&amp;nbsp;Своевременно оплатить предоставляемые услуги в соответствии с пунктом 2 настоящего Договора;<br/>
+	3.2.3&amp;nbsp;&amp;nbsp;При изменении контакных данных Заказчика предоставить в течение 10 дней с момента изменения сведения для обновления базы данных.<br/>
+	3.2.4&amp;nbsp;&amp;nbsp;В течение 5 банковских дней с момента получения договора вернуть его оформленным надлежащим образом Исполнителю. В противном случае Исполнитель имеет право на отключение услуг, до выяснения обстоятельств;<br/>
+	3.2.5&amp;nbsp;&amp;nbsp;Нести ответственность за содержание информации, размещенной на Сайте и не допускать распространения информации запрещенной к распространению законодательством РФ или других стран, а также содействовать проведению оперативно-розыскных мероприятий (СОРМ);<br/>
+	<br/>
+	<b>4.&amp;nbsp;&amp;nbsp;Ответственность сторон</b><br/>
+	4.1&amp;nbsp;&amp;nbsp;&amp;nbsp; За неисполнение или ненадлежащее исполнение обязательств по настоящему Договору Стороны несут ответственность, предусмотренную действующим законодательством РФ, настоящим Договором и Публичной офертой Исполнителя;<br/>
+	4.2&amp;nbsp;&amp;nbsp;&amp;nbsp; В случае невыполнения Заказчиком пункта 3.2 настоящего Договора Исполнитель оставляет за собой право прекратить оказание услуг по настоящему Договору;<br/>
+	4.3&amp;nbsp;&amp;nbsp;&amp;nbsp; Исполнитель, <c:if test="${inred eq true}">продлевая регистрацию</c:if> <c:if test="${inred eq false}">регистрируя</c:if> домен, не несет ответственности перед третьей стороной за нарушения Заказчиком прав торговой марки;<br/>
+	4.4&amp;nbsp;&amp;nbsp;&amp;nbsp; Исполнитель не несет ответственность за перебои в работе домена Заказчика, происходящие по независящим от Исполнителя причинам;<br/>
+	4.5&amp;nbsp;&amp;nbsp;&amp;nbsp; Стороны обязуются не раскрывать конфиденциальную информацию другим лицам и не использовать ее для других целей, кроме целей, предусмотренных и связанных с выполнением настоящего договора, за исключением случаев, предусмотренных законодательством РФ.<br/>
+	<br/>
+	<b>5.&amp;nbsp;&amp;nbsp;Особые условия</b><br/>
+	5.1&amp;nbsp;&amp;nbsp;&amp;nbsp; Планируемые изменения в правилах регистрации вступают в силу через 10 календарных дней с момента сообщения;<br/>
+	5.2&amp;nbsp;&amp;nbsp;&amp;nbsp; В случае согласия Заказчика с такими изменениями настоящий Договор продолжает свое действие с учетом указанных изменений;<br/>
+	5.3&amp;nbsp;&amp;nbsp;&amp;nbsp; В случае несогласия Заказчика, повлекшим за собой желание расторгнуть настоящий Договор, Заказчик обязуется оповестить об этом Исполнителя в течение указанных 5 календарных дней (до момента вступления в силу изменений) официальным письмом с уведомлением о вручении. В этом случае настоящий Договор прекращает свое действие с момента вступления в силу изменений;<br/>
+	5.4&amp;nbsp;&amp;nbsp;&amp;nbsp; При расторжении настоящего Договора оплата за услугу не возвращается.<br/>
+	<br/>
+	<b>6.&amp;nbsp;&amp;nbsp;Порядок разрешения споров</b><br/>
+	6.1&amp;nbsp;&amp;nbsp;&amp;nbsp; Споры, возникающие в связи с исполнением настоящего Договора, должны быть разрешены посредством переговоров;<br/>
+	6.2&amp;nbsp;&amp;nbsp;&amp;nbsp; Споры между Сторонами, вытекающие из настоящего Договора или в связи с его исполнением, не урегулированные путем переговоров Сторон, подлежат разрешению в суде.<br/>
+	<br/>
+	<b>7.&amp;nbsp;&amp;nbsp;Форс - Мажор</b><br/>
+	7.1&amp;nbsp;&amp;nbsp;&amp;nbsp; Стороны не несут ответственности за неисполнение и/или просрочку исполнения обязательств по Договору, если неисполнение и/или просрочка исполнения произошли вследствие обстоятельств непреодолимой силы, находящихся вне контроля сторон, таких как военные действия, эмбарго, пожары, наводнения или иные стихийные бедствия. Каждое из этих, обстоятельств рассматривается как &amp;laquo;форс-мажор&amp;raquo; и сторона, для которой наступили обстоятельства форс-мажора, обязана в трехдневный срок письменно известить другую сторону о наступлении данных обстоятельств;<br/>
+	7.2&amp;nbsp;&amp;nbsp;&amp;nbsp; Сторона, не уведомившая или несвоевременно уведомившая другую сторону о наступлении обстоятельств непреодолимой силы, лишается права ссылаться на обстоятельства форс-мажора.<br/>
+	<br/>
+	<b>8.&amp;nbsp;&amp;nbsp;Срок действия Договора</b><br/>
+	8.1&amp;nbsp;&amp;nbsp;&amp;nbsp; Срок действия настоящего Договора 
+	${contract.hyear} 
+	(
+<c:choose>
+	<c:when test="${contract.hyear==1}">один</c:when>
+	<c:when test="${contract.hyear==2}">два</c:when>
+	<c:when test="${contract.hyear==3}">три</c:when>
+	<c:when test="${contract.hyear==4}">четыре</c:when>
+	<c:when test="${contract.hyear==5}">пять</c:when>
+	<c:when test="${contract.hyear==6}">шесть</c:when>
+	<c:when test="${contract.hyear==7}">семь</c:when>
+	<c:when test="${contract.hyear==8}">восемь</c:when>
+	<c:when test="${contract.hyear==9}">девять</c:when>
+	<c:when test="${contract.hyear==10}">десять</c:when>
+</c:choose>
+	) 
+<c:choose>
+	<c:when test="${contract.hyear==3 or contract.hyear==4 or contract.hyear==2}">года</c:when>
+	<c:when test="${contract.hyear>=5}">лет</c:when>
+	<c:otherwise>год</c:otherwise>
+</c:choose>
+	 с даты его подписания;<br/>
+	8.2&amp;nbsp;&amp;nbsp;&amp;nbsp; Настоящий Договор может быть прекращен досрочно по соглашению обеих Сторон или по инициативе Заказчика с подачей письменного заявления Исполнителю за 15 дней до даты расторжения настоящего Договора.<br/>
+	<br/>
+	<b>9.&amp;nbsp;&amp;nbsp;Прочие условия</b><br/>
+	9.1&amp;nbsp;&amp;nbsp;&amp;nbsp; Любые изменения настоящего Договора действительны в случае, если они составлены в письменном виде и подписаны уполномоченным представителями сторон. Оформленные надлежащим образом приложения к настоящему Договору являются его неотъемлемой частью;<br/>
+	9.2&amp;nbsp;&amp;nbsp;&amp;nbsp; Настоящий Договор составлен в двух экземплярах. Оба экземпляра идентичны и имеют одинаковую юридическую силу. У каждой из Сторон находится один экземпляр настоящего Договора.<br/>
+	<br/>
+	<b>10. Почтовые и банковские&amp;nbsp;реквизиты сторон</b><br/>
+
+	<table cellspacing="0" cellpadding="0" border="0" class="contract_bottom_table">
+	<tr>
+		<td width="50%">
+			<b>&amp;laquo;Исполнитель&amp;raquo;<br/>
+			ООО &amp;laquo;Русский лес&amp;raquo;, Казань 
+			<br/>
+			М.П.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;___________________________________________________</b>
+		</td>
+		<td width="50%">
+			<b>&amp;laquo;Заказчик&amp;raquo;</b><br/>
+			<c:choose>
+				<c:when test="${clean == true}">__________________________________________________</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${contract.contact.contactType eq 'p'}">${contract.contact.contactName}<br/></c:when>
+						<c:otherwise>${contract.contact.organization}<br/></c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${clean == true}">__________________________________________________</c:when>
+				<c:otherwise> ${contract.contact.country.name}, ${contract.contact.region.name},<br/> ${contract.contact.city.name}, <br/>${contract.contact.address}</c:otherwise>
+			</c:choose>
+			<br/>
+			<c:choose>
+				<c:when test="${clean == true}">___________________________________________________</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${contract.contact.contactType eq 'p'}">Паспорт ${contract.contact.passportCode} ${contract.contact.passport}</c:when>
+						<c:otherwise>Р/C ${contract.contact.rs} в ${contract.contact.bankName}</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose><br/>
+			<c:choose>
+				<c:when test="${clean == true}">___________________________________________________</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${contract.contact.contactType eq 'p'}">${contract.contact.email} </c:when>
+						<c:otherwise> 
+						<c:if test="${not empty contract.contact.vatregnum}"> <br/>ИБН ${contract.contact.vatregnum}</c:if>
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${clean == true}">___________________________________________________</c:when>
+				<c:otherwise>Тел: ${contract.contact.phone}</c:otherwise>
+			</c:choose><br/>
+			___________________________________________________<br/>
+			<c:if test="${contract.contact.contactType eq 'l'}">М.П.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;___________________________________________</c:if>
+			<c:if test="${contract.contact.contactType eq 'p'}">___________________________________________________</c:if>
+		</td>
+	</tr>
+	</table>
+</div>

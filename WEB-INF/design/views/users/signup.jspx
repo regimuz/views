@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+	xmlns:frm="http://www.springframework.org/tags/form"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
+	xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <spring:message code="signup_title" var="title" htmlEscape="false" />
+    
+    
+<div class="gradient registration_form_title" id="form_tabs"><spring:message code="users.signup.regist_user" htmlEscape="false"/></div>
+		<spring:message code='value.reg_in' htmlEscape='false' var='valueRegIn'/>
+		<form:create id="fc_webapp_web_domain_User" modelAttribute="user" path="/users" buttontext="${valueRegIn}">
+			<ul>
+				<li class="avtoriz_data">
+					<p><spring:message code="users.signup.datas_for_auth" htmlEscape="false"/></p>
+			        <field:input field="username" id="c_webapp_web_domain_User_username" required="true" validationMessageCode="field_invalid_username" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+			        <field:input field="firstName" id="c_webapp_web_domain_User_firstName" required="true" validationMessageCode="field_invalid_firstName" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+			        <field:input field="lastName" id="c_webapp_web_domain_User_lastName" required="true" validationMessageCode="field_invalid_lastName" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+					<field:input field="email" id="c_webapp_web_domain_User_email" required="true" validationMessageCode="field_invalid_email" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+					<field:input field="password" id="c_webapp_web_domain_User_password" z="eF+yLJTTf992sUh1L3CRTxabFQI="/>
+					<div>
+						<label><spring:message code="theme.confirmPass"/> : </label>
+				        <input type="password" name="confirm" id="confirmPassword" />					
+					</div>
+				</li>
+				
+				</ul>
+				
+				<div id="form_tab">
+				<ul class="tab_menu">
+					<li><p><spring:message code="users.signup.identify_yourself" htmlEscape="false"/></p></li>
+					<li class="clear">&amp;nbsp;</li>
+					<li><div class="you_are"><spring:message code="users.signup.you" htmlEscape="false"/>:</div></li>
+					<li><a href="#tab1"><span>&amp;nbsp;</span></a><div><spring:message code="users.signup.individual" htmlEscape="false"/></div></li>
+					<li><a href="#tab2"><span>&amp;nbsp;</span></a><div><spring:message code="users.signup.company" htmlEscape="false"/></div></li>
+				</ul>
+				
+				<ul id="tab1">
+				<li class="additionally_info">
+					<p><spring:message code="users.signup.additional_info" htmlEscape="false"/></p>
+					<div>
+						<label><spring:message code="users.signup.fio" htmlEscape="false"/>:</label>
+						<input type="text" value="Александр Александров Александрович"/>
+					</div>
+					<div>
+						<label><spring:message code="users.signup.date_of_birth" htmlEscape="false"/></label>
+						<select class="birth_day">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+						</select>
+						<select class="birth_month">
+							<option>Январь</option>
+							<option>Февраль</option>
+							<option>Март</option>
+							<option>Апрель</option>
+						</select>
+						<select class="birth_year">
+							<option>1900</option>
+							<option>1950</option>
+							<option>2000</option>
+							<option>2013</option>
+						</select>
+					</div>
+					<div class="seria_pas">
+						<label><spring:message code="users.signup.passport_seria" htmlEscape="false"/></label>
+						<input class="seria" type="text"/>
+						<input class="numb" type="text"/>
+					</div>
+					<div>
+						<label><spring:message code="users.signup.given_by" htmlEscape="false"/></label>
+						<input type="text"/>
+					</div>
+					<div>
+						<label><spring:message code="users.signup.pass_valid_until" htmlEscape="false"/></label>
+						<select class="birth_day">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+						</select>
+						<select class="birth_month">
+							<option>Январь</option>
+							<option>Февраль</option>
+							<option>Март</option>
+							<option>Апрель</option>
+						</select>
+						<select class="birth_year">
+							<option>1900</option>
+							<option>1950</option>
+							<option>2000</option>
+							<option>2013</option>
+						</select>
+					</div>					
+				</li>
+				</ul>
+				
+				<ul id="tab2">
+					<li class="additionally_info">
+					<p><spring:message code="users.signup.company_datas" htmlEscape="false"/></p>
+					<div>
+						<label><spring:message code="users.signup.company_title" htmlEscape="false"/></label>
+						<spring:message code='value.company_title' htmlEscape='false' var='valueCompanyTitle'/>
+						<input type="text" placeholder="${valueCompanyTitle}"/>
+					</div>
+					<div><label><spring:message code="users.signup.director_fio" htmlEscape="false"/></label><input type="text"/></div>
+					<div>
+					</div>
+					<div>
+						<label><spring:message code="users.signup.bank_title" htmlEscape="false"/></label>
+						<input type="text"/>
+					</div>
+					<div>
+						<label>Р/C:</label>
+						<input type="text"/>
+					</div>
+					<div>
+						<label>ИНН:</label>
+						<input type="text"/>
+					</div>	
+					<div>
+						<label>МФО:</label>
+						<input type="text"/>
+					</div>	
+					<div>
+						<label>ОКОНХ:</label>
+						<input type="text"/>
+					</div>							
+				</li>
+				</ul>
+				<ul>
+					<li>
+					<p><spring:message code="users.signup.contact_info" htmlEscape="false"/></p>
+					<div><label><spring:message code="users.signup.country" htmlEscape="false"/>:</label><div class="uz_select">Узбекистан</div></div>
+					<div><label><spring:message code="users.signup.city" htmlEscape="false"/>:</label><input type="text"/></div>
+					<div><label><spring:message code="users.signup.mail_id" htmlEscape="false"/>:</label><input type="text"/></div>
+					<div><label><spring:message code="users.signup.address" htmlEscape="false"/>:</label>
+						<textarea>&amp;nbsp;</textarea>
+					</div>
+					<div><label><spring:message code="users.signup.telephone" htmlEscape="false"/>:</label><input type="text"/></div>
+					<div><label><spring:message code="users.signup.fax" htmlEscape="false"/>:</label><input class="faks" type="text"/></div>
+					</li>
+				</ul>
+				<ul>
+				<li class="usage_rules">
+					<div>
+						<label><spring:message code="users.signup.usage_rules" htmlEscape="false"/>:</label>
+						<input type="checkbox" checked="checked"/>
+						<div class="accept_terms"><spring:message code="users.signup.accept" htmlEscape="false"/> <a href="#"><spring:message code="users.signup.oferta" htmlEscape="false"/></a></div>
+					</div>
+					<div class="code_cont">
+						<label><spring:message code="users.signup.spam_protaction" htmlEscape="false"/>:</label>
+						<p class="fleft"><spring:message code="users.signup.click_on_picture" htmlEscape="false"/></p>
+						<img src="images/img/code.jpg"/>
+						<input class="code_enter_form" type="text"/>
+					</div>		
+					<div class="submit_div">
+						<label>&amp;nbsp;</label>
+						<input type="submit" value="${valueRegIn}"/>
+					</div>			
+				</li>
+			</ul>
+			
+		</div>	
+		</form:create>
+    
+    
+    
+    
+    
+    <div style="width: 500px;">
+    <util:panel title="${title}" id="signup">
+    <frm:form method="POST" modelAttribute="user">	
+        <field:input field="email"  id="c_webapp_web_domain_User_email" required="true" validationMessageCode="field_invalid_email" z="Y7TYjOvNG65xPa0/Qasn17GyXtM="/>
+        <field:input type="password" field="password"  id="c_webapp_web_domain_User_password" required="true" z="eLaG5QAy3wFwIw4zn30cUC1iyzw="/>
+        
+        <label><spring:message code="theme.confirmPass"/> : </label>
+        <input type="password" name="confirm" id="confirmPassword" />
+        <spring:message code="theme.confirmPass" var="confirmPass"/>
+        <spring:message code="theme.confirmPass" var="unfilledForm"/>
+		<script type="text/javascript">
+			Spring.addDecoration(new Spring.ElementDecoration({elementId : 'confirmPassword', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${confirmPass}', required : true, missingMessage : '${unfilledForm}' }})); 
+		</script>
+        <br/><br/>
+        <label><spring:message code="theme.enterCode"/> :</label>
+        <spring:url value="/captcha-image.html" var="captchaImg"/>
+        <img src="${captchaImg}" class="captchaImg" width="160" />
+        <input type="text" name="captchaCode" class="captchaCode" style="width: 80px;height: 22px;margin-left: 10px; " />
+        <br/><br/><br clear="all"/>
+
+		<frm:errors cssClass="errors" delimiter="&lt;p/&gt;"/>
+        <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
+        <spring:message code="button_submit" var="submit_label" htmlEscape="false" />
+        <div class="submit">
+        <input id="proceed" type="submit" value="${fn:escapeXml(submit_label)}" style="margin-right: 40px"/>
+        </div>
+    </frm:form>
+    </util:panel>
+    </div>
+    </layout:put></layout:extends>
+</div>

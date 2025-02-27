@@ -1,0 +1,11 @@
+<html>
+<body>
+<h3>Добрый день [[${user.email}]],</h3>
+<div>
+   Вами была запрошена смена пароля на сайте <a href="https://localhost">[[${request.serverName}]]</a>.<br/>
+   Ваш новый пароль: <b>[[${newPasswd}]]</b><br/>
+   Чтобы подтвердить новый пароль пожалуйста перейдите по ссылке:<br/>
+   <a href="https://localhost/users/validate/[[${newPasswd}]]">https://localhost/users/validate/[[${newPasswd}]]</a>
+</div>
+</body>
+</html>

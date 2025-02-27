@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <page:list create="true" id="pl_webapp_web_domain_WhmPackage" items="${whmpackages}" path="/whmpackages" z="user-managed">
+        <table:table data="${whmpackages}" id="l_webapp_web_domain_WhmPackage" path="/whmpackages" z="apI/WUG0yZaZS+R4ZmdWcDvytyQ=">
+            <table:column id="c_webapp_web_domain_WhmPackage_title" maxLength="255" property="title" z="user-managed"/>
+            <table:column id="c_webapp_web_domain_WhmPackage_name" maxLength="255" property="name" z="user-managed"/>
+            <table:column id="c_webapp_web_domain_WhmPackage_cost" property="cost" z="user-managed"/>
+            <table:column id="c_webapp_web_domain_WhmPackage_regtime" property="regtime" z="qHmLlje/5GXARQDw0MWF+OzShu8="/>
+            <table:column id="c_webapp_web_domain_WhmPackage_price" property="price" z="w9Xz9ciqQgjWCreCtGAI1EfltFw="/>
+        </table:table>
+    </page:list>
+    </layout:put></layout:extends>
+</div>

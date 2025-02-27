@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="registrationForm regsitration_form registration_form" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:frm="http://www.springframework.org/tags/form"
+xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" /><layout:extends name="default"><layout:put block="contents">
+    <spring:message code="value.reg_in" var='valueRgIn'/>
+    <form:create buttontext="${valueRgIn}" id="fc_webapp_web_domain_User" modelAttribute="signupUser" path="/users" render="${empty dependencies}" z="user-managed">
+        <c:if test="${not empty entityErrors}">
+	        <c:forEach items="${entityErrors}" var="err">
+	        	<p>${err.defaultMessage}</p>
+	        </c:forEach>
+	        <!-- 
+			<spring:url value="/users/resendConfirmation" var="resendUrl"/>
+			<a href="${resendUrl}"><spring:message code="resend_confirmation" /></a>
+			<br/>
+			<br/>
+			 -->
+        </c:if>
+        <form:dependency dependencies="${dependencies}" id="d_webapp_web_domain_User" render="${not empty dependencies}" z="GA7p0kgyqkiln1vv7NtOtVuUC24="/>
+        <field:input field="cType" id="c_webapp_web_domain_Contact_contactType" type="hidden"/>
+        <ul>
+            <li class="avtoriz_data">
+                <p><spring:message code="users.create.datas_for_authorization" htmlEscape="false"/></p>
+		        <field:input field="username" id="c_webapp_web_domain_User_username" required="true" validationMessageCode="field_invalid_username" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+		        <field:input field="firstName" id="c_webapp_web_domain_User_firstName" required="true" validationMessageCode="field_invalid_firstName" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+		        <field:input field="lastName" id="c_webapp_web_domain_User_lastName" required="true" validationMessageCode="field_invalid_lastName" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+                <field:input field="email" id="c_webapp_web_domain_User_email" required="true" validationMessageCode="field_invalid_email" z="CS8bUSUwegZ/vl42iC2/GoVv1ho="/>
+                <field:input field="password" type="password" id="c_webapp_web_domain_User_password" z="eF+yLJTTf992sUh1L3CRTxabFQI="/>
+                <div>
+                    <label><spring:message code="theme.confirmPass"/> : </label>
+                    	<frm:input id="confirmPassword" type="password" path="confirmPassword"/>
+                </div>
+            </li>
+        </ul>
+ 
+        <div id="form_tab">
+            <ul class="tab_menu">
+                <li><p><spring:message code="users.create.identify_yourself" htmlEscape="false"/></p></li>
+                <li class="clear">&amp;nbsp;</li>
+                <li><div class="you_are"><spring:message code="users.create.you" htmlEscape="false"/>:</div></li>
+                <li><a href="#tab1" class="setFalse"><span>&amp;nbsp;</span></a>
+                    <div><spring:message code="users.create.individual" htmlEscape="false"/></div>
+                </li>
+                <li><a href="#tab2" class="setTrue"><span>&amp;nbsp;</span></a>
+                    <div><spring:message code="users.create.company" htmlEscape="false"/></div>
+                </li>
+            </ul>
+            <ul id="tab1">
+                <li class="additionally_info">
+                    <p><spring:message code="users.create.additional_info" htmlEscape="false"/></p>
+                    <!--<field:datetime dateTimePattern="${contact_birthday_date_format}" field="birthday" id="c_webapp_web_domain_Contact_birthday" noDojo="true" z="mFxFE0pbmS1dJ4mE1twmxeB4yrM="/>-->
+                    <field:input field="passportCode" id="c_webapp_web_domain_Contact_passportCode" noDojo="true" z="cXcW2EBw3qeiO9G8eWOFbQShqss="/>
+                    <field:input field="passport" id="c_webapp_web_domain_Contact_passport" noDojo="true" z="DwdkShZnHXFDPa8mdLCgbfdCfSY="/>
+                    <field:input field="passportWhom" id="c_webapp_web_domain_Contact_passportWhom" noDojo="true" z="LQet/cpz1u6rlWpZ1ajlwJesTys="/>
+                    <!--<field:datetime dateTimePattern="${contact_passportexpired_date_format}" field="passportExpired" id="c_webapp_web_domain_Contact_passportExpired" noDojo="true" z="O1lm1L0F/ZJ3+r7cg5A8k39zyWY="/>-->
+                </li>
+            </ul>
+            <ul id="tab2">
+                <li class="additionally_info">
+                    <p><spring:message code="users.create.company_datas" htmlEscape="false"/></p>
+                    <field:input field="organization" id="c_webapp_web_domain_Contact_organization" noDojo="true" z="05RrF2ofxxopx2PsIrEbAMidAtg="/>
+                    <field:input field="bankName" id="c_webapp_web_domain_Contact_bankName" noDojo="true" z="ZKDOP27lNa/OYJsiJTpeAcdOBZA="/>
+                    <field:input field="rs" id="c_webapp_web_domain_Contact_rs" noDojo="true" z="N2dbxvdxVChGg7QyTUZmFlHI6cU="/>
+                </li>
+            </ul>
+            <br clear="all"/>
+            <ul>
+            	<li class="contact_info">
+                    <p><spring:message code="users.create.contact_info" htmlEscape="false"/></p>
+                    
+                                        <div class="intr_div_class gen_select">
+                        <LABEL class="fieldLabel"><spring:message code="label_webapp_web_domain_contact_country"/>:</LABEL>
+                        <select name="country"  id="_country_id" class="fieldSelect skipCustom drop_contacts">
+                                <c:forEach items="${countrys}" var="cntr">
+                    <c:choose>
+                        <c:when test="${signupUser.country.id eq cntr.id}">
+                                <option value="${cntr.id}" selected="selected">${cntr.name}</option>
+                        </c:when>
+                        <c:otherwise>
+                                <option value="${cntr.id}">${cntr.name}</option>
+                        </c:otherwise>
+                    </c:choose>
+                                </c:forEach>
+                        </select>
+                    </div>
+
+                    
+                    <!--<field:select noDojo="true" cssClass="skipCustom" field="country" id="c_webapp_web_domain_Contact_country" itemValue="id" itemLabel="name" items="${countrys}" path="/countrys" z="9s1XbpAYZmeQ4xlDsYA7KmJb1MU="/>-->
+                    <field:select noDojo="true" cssClass="skipCustom" field="region" id="c_webapp_web_domain_Contact_region" itemValue="id" itemLabel="name" items="${regions}" path="/regions" z="2kMw83GOoiRwK6ckk/LZIMIpRd8="/>
+                    <field:select noDojo="true" cssClass="skipCustom" field="city" id="c_webapp_web_domain_Contact_city" itemValue="id" itemLabel="name" items="${citys}" path="/citys" z="HM0kGTK7RyI9swUKmkE24i6nolc="/>
+                    <field:input field="postal" id="c_webapp_web_domain_Contact_postal" validationMessageCode="field_invalid_integer" z="gEeSB5pwi2A4w8Kb4jWLXNl5C9M="/>
+                    <field:textarea field="address" required="true" id="c_webapp_web_domain_Contact_address" z="LW3zcLik837HpZf3E/pdVVdU49Y="/>
+                    <field:input field="phone" required="true" id="c_webapp_web_domain_Contact_phone" z="aU403m7tGd5VQ/BP0U55FzdXot0="/>
+                    <field:input field="fax" id="c_webapp_web_domain_Contact_fax" z="QYWwvXMa67A/qP1ipLEuPn0ww2w="/>
+                </li>
+            </ul>
+        </div>
+    </form:create>
+
+<c:set var="activeType" value="0"/>
+<SCRIPT type="text/javascript">
+jQuery(document).ready(function () {
+	$( "#form_tab" ).tabs({
+		active:${activeType},
+		show:"drop",
+		create: function( event, ui ) {
+			$(".ui-widget,.ui-widget-content,.ui-corner-all,.ui-widget-header").removeClass("ui-widget").removeClass("ui-widget-content").removeClass("ui-corner-all").removeClass("ui-widget-header");
+		}
+	});
+});
+</SCRIPT>
+<style type="text/css">
+span.errors {
+color:red;
+}
+</style>
+</layout:put></layout:extends>
+</div>

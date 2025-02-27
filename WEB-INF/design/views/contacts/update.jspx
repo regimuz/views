@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
+xmlns:frm="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:layout="http://kwonnam.pe.kr/jsp/template-inheritance" xmlns:sec="http://www.springframework.org/security/tags" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions" class="registrationForm regsitration_form registration_form" style="width:800px" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes" />
+    <layout:extends name="default"><layout:put block="contents">
+    <form:update id="fu_webapp_web_domain_Contact" modelAttribute="contact" path="/contacts" versionField="none" z="0u9h6Nzkn+XyQqldRxs/q8IhpyQ=">
+        <field:input field="contactType" id="c_webapp_web_domain_Contact_contactType" type="hidden" z="user-managed"/>
+        <sec:authorize access="hasAuthority('admin')">
+            <ul><li class="contact_info">
+            <div class="intr_div_class ">
+                <LABEL>User:</LABEL>
+                <frm:input id="userSelect" path="user"/>
+                <script type="text/javascript">
+				dojo.require("dijit.form.ComboBox");
+				dojo.require("dojox.data.QueryReadStore");
+				dojo.ready(function(){
+					// create store instance referencing data from states.json
+					var stateStore = new dojox.data.QueryReadStore({
+						url:siteurl+"users/listJson"
+					});
+					// create ComboBox widget, populating its options from the store
+					var select = new dijit.form.ComboBox({
+						name: "user",
+						value:"${contact.user.email}",
+						autoComplete:false,
+						placeHolder: "email",
+						store: stateStore,
+						searchAttr:'email'
+				}, "userSelect");
+					select.startup();
+				});
+			</script>
+            </div>
+        	</li></ul>
+        </sec:authorize>
+        <div id="form_tab">
+        	<c:if test="${contact.editAble eq true}">
+            <ul class="tab_menu">
+                <li>
+                    <p><spring:message code="contacts.create.identify" htmlEscape="false"/></p>
+                </li>
+                <li class="clear">&amp;nbsp;</li>
+                <li>
+                    <div class="you_are"><spring:message code="contacts.create.you" htmlEscape="false"/>:</div>
+                </li>
+                <li>
+                    <a class="setFalse" href="#tab1">
+                        <span>&amp;nbsp;</span>
+                    </a>
+                    <div><spring:message code="contacts.create.individual" htmlEscape="false"/></div>
+                </li>
+                <li>
+                    <a class="setTrue" href="#tab2">
+                        <span>&amp;nbsp;</span>
+                    </a>
+                    <div><spring:message code="contacts.create.company" htmlEscape="false"/></div>
+                </li>
+            </ul>
+            </c:if>
+            <c:set var="showPrivate" value="true"/>
+            <c:set var="showLegal" value="true"/>
+           
+           	<c:if test="${contact.contactType eq 'l'}">
+           		<c:set var="showLegal" value="true"/>
+           		<c:set var="showPrivate" value="false"/>
+           	</c:if>
+           	<c:if test="${contact.contactType eq 'p'}">
+           		<c:set var="showPrivate" value="true"/>
+           		<c:set var="showLegal" value="false"/>
+           	</c:if>
+
+            <c:if test="${showPrivate eq true}">
+            <ul id="tab1">
+                <li class="additionally_info">
+                    <p><spring:message code="contacts.create.additional_info" htmlEscape="false"/></p>
+                    <c:choose>
+                    	<c:when test="${contact.editAble}">
+                    		<field:input field="contactName" id="c_webapp_web_domain_Contact_contactName" noDojo="true" z="user-managed"/>
+		                    <field:datetime dateTimePattern="${date_format}" field="birthday" id="c_webapp_web_domain_Contact_birthday" noDojo="true" z="user-managed"/>
+		                    <field:input field="passportCode" id="c_webapp_web_domain_Contact_passportCode" noDojo="true" z="user-managed"/>
+		                    <field:input field="passport" id="c_webapp_web_domain_Contact_passport" noDojo="true" z="user-managed"/>
+		                    <field:input field="passportWhom" id="c_webapp_web_domain_Contact_passportWhom" noDojo="true" z="user-managed"/>
+		                    <field:datetime dateTimePattern="${date_format}" field="passportExpired" id="c_webapp_web_domain_Contact_passportExpired" noDojo="true" z="user-managed"/>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<field:display withHidden="true" field="contactName" id="c_webapp_web_domain_Contact_contactName" object="${contact}" z="user-managed"/>
+		                    <field:display withHidden="true" dateTimePattern="${date_format}" field="birthday" id="c_webapp_web_domain_Contact_birthday"  object="${contact}" z="user-managed"/>
+		                    <field:display withHidden="true" field="passportCode" id="c_webapp_web_domain_Contact_passportCode"  object="${contact}" z="user-managed"/>
+		                    <field:display withHidden="true" field="passport" id="c_webapp_web_domain_Contact_passport"  object="${contact}" z="user-managed"/>
+		                    <field:display withHidden="true" field="passportWhom" id="c_webapp_web_domain_Contact_passportWhom"  object="${contact}" z="user-managed"/>
+		                    <field:display withHidden="true" dateTimePattern="${date_format}" field="passportExpired" id="c_webapp_web_domain_Contact_passportExpired" object="${contact}" z="user-managed"/>
+                    	</c:otherwise>
+                    </c:choose>
+                </li>
+            </ul>
+            </c:if>
+            <c:if test="${showLegal eq true}">
+            <ul id="tab2">
+                <li class="additionally_info">
+                    <p><spring:message code="contacts.create.company_datas" htmlEscape="false"/></p>
+                    <field:input field="contactName" id="c_webapp_web_domain_Contact_contactName" noDojo="true" z="8KWaq7hcerS3nhZCzw6JF2U0slY="/>
+                    <c:choose>
+                    	<c:when test="${contact.editAble}">
+		                    <field:input field="organization" id="c_webapp_web_domain_Contact_organization" noDojo="true" z="user-managed"/>
+		                    <field:input field="vatregnum" id="c_webapp_web_domain_Contact_vatregnum" noDojo="true" z="user-managed"/>
+                    	</c:when>
+                    	<c:otherwise>
+		                    <field:display withHidden="true" field="organization" id="c_webapp_web_domain_Contact_organization" object="${contact}" z="user-managed"/>
+		                    <field:display withHidden="true" field="vatregnum" id="c_webapp_web_domain_Contact_vatregnum" object="${contact}" z="user-managed"/>
+                    	</c:otherwise>
+                    </c:choose>
+                    <field:input field="bankName" id="c_webapp_web_domain_Contact_bankName" noDojo="true" z="user-managed"/>
+                    <field:input field="rs" id="c_webapp_web_domain_Contact_rs" noDojo="true" z="user-managed"/>
+                </li>
+            </ul>
+            </c:if>
+            <br clear="all"/>
+            <ul>
+                <li class="contact_info">
+                    <p><spring:message code="contacts.create.contact_info" htmlEscape="false"/></p>
+                    <div class="intr_div_class gen_select">
+                        <LABEL class="fieldLabel"><spring:message code="label_webapp_web_domain_contact_country"/>:</LABEL>
+                        <select name="country"  id="_country_id" class="fieldSelect skipCustom drop_contacts">
+                                <c:forEach items="${countrys}" var="cntr">
+				                    <c:choose>
+				                        <c:when test="${contact.country.id eq cntr.id}">
+				                                <option value="${cntr.id}" selected="selected">${cntr.name}</option>
+				                        </c:when>
+				                        <c:otherwise>
+				                                <option value="${cntr.id}">${cntr.name}</option>
+				                        </c:otherwise>
+				                    </c:choose>
+                                </c:forEach>
+                        </select>
+                    </div>
+                    <!--<field:select cssClass="skipCustom" field="country" id="c_webapp_web_domain_Contact_country" itemLabel="name" itemValue="id" items="${countrys}" noDojo="true" path="/countrys" z="user-managed"/>-->
+                    <field:select cssClass="skipCustom" field="region" id="c_webapp_web_domain_Contact_region" itemLabel="name" itemValue="id" items="${regions}" noDojo="true" path="/regions" z="user-managed"/>
+                    <field:select cssClass="skipCustom" field="city" id="c_webapp_web_domain_Contact_city" itemLabel="name" itemValue="id" items="${citys}" noDojo="true" path="/citys" z="user-managed"/>
+                    <c:if test="${contact.editAble}">
+                    	<field:textarea required="true" field="address" id="c_webapp_web_domain_Contact_address" z="user-managed"/>
+                    </c:if>
+                    <c:if test="${contact.editAble eq false}">
+                    	<field:display withHidden="true" object="${contact}" field="address" id="c_webapp_web_domain_Contact_address" z="user-managed"/>
+                    </c:if>
+                </li>
+            </ul>
+        </div>
+		<ul><li class="contact_info">
+        <field:input field="phone" required="true" id="c_webapp_web_domain_Contact_phone" z="aU403m7tGd5VQ/BP0U55FzdXot0="/>
+        <field:input field="fax" id="c_webapp_web_domain_Contact_fax" z="QYWwvXMa67A/qP1ipLEuPn0ww2w="/>
+        <field:input field="email" required="true" id="c_webapp_web_domain_Contact_email" validationMessageCode="field_invalid_email" z="wJTiIyPMoXvv9WWkDM/+b2GGkTo="/>
+        <field:input field="postal" id="c_webapp_web_domain_Contact_postal" validationMessageCode="field_invalid_integer" z="gEeSB5pwi2A4w8Kb4jWLXNl5C9M="/>
+		<sec:authorize access="hasAuthority('admin')">
+			<div style="padding-top: 30px;padding-bottom: 30px">
+			<field:datetime label="Подтвердить до" dateTimePattern="${date_format}" noDojo="true" field="verifiedTill" id="c_webapp_web_domain_Contact_verifiedTill" z="user-managed"/>
+			</div>
+		</sec:authorize>
+        </li></ul>
+    </form:update>
+
+<SCRIPT type="text/javascript">
+	jQuery(document).ready(function () {
+		$("a.lockButton").click(function (e) {
+			e.preventDefault();
+			$.get($(this).attr('href'));
+			$(this).hide();
+		});
+		$("a.removeButton").click(function (e) {
+			e.preventDefault();
+			$.get($(this).attr('href'));
+			$(this).parent('li').hide();
+		});
+		var activeTab = 0;
+		if ($("input#_contactType_id").val() == 'l') activeTab = 1;
+		$( "#form_tab" ).tabs({
+			active:activeTab,
+			show:"drop",
+			create: function( event, ui ) {
+				$(".ui-widget,.ui-widget-content,.ui-corner-all,.ui-widget-header").removeClass("ui-widget").removeClass("ui-widget-content").removeClass("ui-corner-all").removeClass("ui-widget-header");
+			}
+		});
+	});
+</SCRIPT>
+</layout:put></layout:extends>
+</div>
